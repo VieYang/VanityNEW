@@ -1,6 +1,6 @@
-# Vanity Eth
+# Vanity NEW
 
-Nodejs based tool to generate vanity ethereum addresses
+Nodejs based tool to generate vanity newton addresses
 
 # Features!
 
@@ -12,65 +12,59 @@ Nodejs based tool to generate vanity ethereum addresses
 
 ### Installation
 ```sh
-$ npm install -g vanity-eth
-$ vanityeth -i deadbeef
+$ npm install -g vanity-new
+$ vanitynew -i deadbeef
 ```
 ### Examples
 
-Generate ethereum address:
+Generate newton address:
 ```sh
-$ vanityeth
+$ vanitynew
 ```
 
-generate 10 ethereum addresses:
+generate 10 newton addresses:
 ```sh
-$ vanityeth -n 10
+$ vanitynew -n 10
 ```
 
-generate 10 ethereum addresses with deadbeef as starting characters:
+generate 10 newton addresses with deadbeef as starting characters:
 ```sh
-$ vanityeth -n 10 -i deadbeef
+$ vanitynew -n 10 -i deadbeef
 ```
-generate 10 ethereum addresses with DEADBEEF as the checksum address (case sensitive):
+generate 10 newton addresses with DEADBEEF as the checksum address (case sensitive):
 ```sh
-$ vanityeth -n 10 -i DEADBEEF -c
+$ vanitynew -n 10 -i DEADBEEF -c
 ```
-generate ethereum address with vanity contract address:
+generate 10 newton addresses with deadbeef as ending characters:
 ```sh
-$ vanityeth -i deadbeef --contract
+$ vanitynew -i deadbeef --suffix
 ```
 log to file
 ```sh
-$ vanityeth -n 10 -l
+$ vanitynew -n 10 -l
 ```
 help me
 ```sh
-$ vanityeth -h
+$ vanitynew -h
 ```
 ### Docker usage
 
 Get the image
 ```sh
 # Build image locally after cloning repository
-$ docker build -t vanityeth .
-
-# or download image
-docker pull myetherwallet/vanityeth
+$ docker build -t vanitynew .
 ```
 
 Usage
 ```
-$ docker run -it vanityeth
-
-# Pass additional arguments
-$ docker run -it myetherwallet/vanityeth -i deadbeef
+$ docker run -it vanitynew
 ```
 
 ### Running Locally
 To run from source:
 ```sh
-git clone git@github.com:MyEtherWallet/VanityEth.git
-cd VanityEth
+git clone git@github.com:VieYang/VanityNEW.git
+cd VanityNEW
 npm install
 ./index.js
 ```
