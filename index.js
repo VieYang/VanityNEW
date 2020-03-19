@@ -1,6 +1,6 @@
 #! /usr/bin/env node
 
-var VanityEth = require('./libs/VanityEth');
+var VanityNEW = require('./libs/VanityNEW');
 const ora = require('ora');
 var cluster = require('cluster')
 var TimeFormat = require('hh-mm-ss')
@@ -8,7 +8,7 @@ var numCPUs = require('os').cpus().length
 var argv = require('yargs')
     .usage('Usage: $0 <command> [options]')
     .example('$0 -checksum -i B00B5', 'get a wallet where address matches B00B5 in checksum format')
-    .example('$0 --contract -i ABC', 'get a wallet where 0 nonce contract address matches the vanity')
+    .example('$0 --hex -i ABC', 'get a wallet where hex address matches the vanity')
     .example('$0 -n 25 -i ABC', 'get 25 vanity wallets')
     .example('$0 -n 1000', 'get 1000 random wallets')
     .alias('i', 'input')
@@ -20,8 +20,10 @@ var argv = require('yargs')
     .alias('n', 'count')
     .number('n')
     .describe('n', 'number of wallets')
-    .boolean('contract')
-    .describe('contract', 'contract address for contract deployment')
+    .boolean('hex')
+    .describe('hex', 'check address in hex')
+    .boolean('suffix')
+    .describe('suffix', 'check address suffix')
     .alias('l', 'log')
     .boolean('l')
     .describe('l', 'log output to file')
@@ -34,12 +36,17 @@ if (cluster.isMaster) {
         input: argv.input ? argv.input : '',
         isChecksum: argv.checksum ? true : false,
         numWallets: argv.count ? argv.count : 1,
-        isContract: argv.contract ? true : false,
+        isHex: argv.hex ? true : false,
+        isSuffix: argv.suffix ? true : false,
         log: argv.log ? true : false,
-        logFname: argv.log ? 'VanityEth-log-' + Date.now() + '.txt' : ''
+        logFname: argv.log ? 'VanityNEW-log-' + Date.now() + '.txt' : ''
     }
-    if (!VanityEth.isValidHex(args.input)) {
+    if (args.isHex && !VanityNEW.isValidHex(args.input)) {
         console.error(args.input + ' is not valid hexadecimal');
+        process.exit(1);
+    }
+    if (!args.isHex && !VanityNEW.isValidBase58(args.input)) {
+        console.error(args.input + ' is not valid base58 char');
         process.exit(1);
     }
     if (args.log) {
@@ -58,7 +65,8 @@ if (cluster.isMaster) {
         const worker_env = {
             input: args.input,
             isChecksum: args.isChecksum,
-            isContract: args.isContract
+            isHex: args.isHex,
+            isSuffix: args.isSuffix,
         }
         proc = cluster.fork(worker_env);
         proc.on('message', function(message) {
@@ -81,7 +89,7 @@ if (cluster.isMaster) {
     const worker_env = process.env;
     while (true) {
         process.send({
-            account: VanityEth.getVanityWallet(worker_env.input, worker_env.isChecksum == 'true', worker_env.isContract == 'true', function (){
+            account: VanityNEW.getVanityWallet(worker_env.input, worker_env.isChecksum == 'true', worker_env.isHex == 'true', worker_env.isSuffix == 'true', function (){
             process.send({
                 counter: true
             })

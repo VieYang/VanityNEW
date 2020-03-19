@@ -1,7 +1,7 @@
 {
-    "name": "vanity-eth",
-    "version": "1.2.0",
-    "description": "ethereum vanity address generator",
+    "name": "vanity-new",
+    "version": "0.1.0",
+    "description": "newton vanity address generator",
     "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
@@ -12,28 +12,38 @@
     },
     "keywords": [
         "vanity",
-        "ethereum",
-        "address"
+        "newton",
+        "address",
+        "newchain"
     ],
-    "author": "kvhnuke",
+    "author": "VieYang",
     "contributors": [
         {
             "name": "Boris K",
             "url": "https://github.com/bokub"
+        },
+        {
+            "name": "kvhnuke",
+            "url": "https://github.com/MyEtherWallet/VanityEth"
+        },
+        {
+            "name": "MyEtherWallet",
+            "url": "https://github.com/MyEtherWallet/VanityEth"
         }
     ],
     "license": "MIT",
     "bugs": {
-        "url": "https://github.com/MyEtherWallet/VanityEth/issues"
+        "url": "https://github.com/VieYang/VanityNEW/issues"
     },
     "bin": {
         "vanityeth": "index.js"
     },
-    "homepage": "https://github.com/MyEtherWallet/VanityEth#readme",
+    "homepage": "https://github.com/VieYang/VanityNEW",
     "dependencies": {
-        "ethereumjs-util": "^5.1.1",
+        "cluster": "^0.7.7",
         "hh-mm-ss": "^1.2.0",
-        "ora": "^1.3.0",
-        "yargs": "^7.0.1"
+        "keccak": "^3.0.0",
+        "ora": "^4.0.3",
+        "yargs": "^15.3.1"
     }
 }
